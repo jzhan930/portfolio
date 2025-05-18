@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jingyao Zhan - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Tailwind gray-50 */
+        }
+        .progress-bar-bg {
+            background-color: #e5e7eb; /* Tailwind gray-200 */
+        }
+        /* Default progress bar fill color - can be overridden inline */
+        .progress-bar-fill {
+            background-color: #f97316; /* Default to Orange-500 for any unstyled ones */
+        }
+        .icon-link:hover {
+            color: #3b82f6; /* Tailwind blue-500 for general links */
+        }
+        .section-title {
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 600; /* font-semibold */
+            margin-bottom: 1rem; /* mb-4 */
+            color: #1f2937; /* Tailwind gray-800 */
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-lg */
+            padding: 1.5rem; /* p-6 */
+            margin-bottom: 1.5rem; /* mb-6 */
+            position: relative; /* Needed for timeline elements */
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem; /* py-3 px-6 */
+            border-radius: 0.5rem; /* rounded-lg */
+            font-weight: 500; /* font-medium */
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background-color: #3b82f6; /* Tailwind blue-500 */
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #2563eb; /* Tailwind blue-600 */
+        }
+        .btn-outline {
+            background-color: transparent;
+            color: #3b82f6; /* Tailwind blue-500 */
+            border: 1px solid #3b82f6; /* Tailwind blue-500 */
+        }
+        .btn-outline:hover {
+            background-color: #eff6ff; /* Tailwind blue-50 */
+        }
+
+        .hero-background {
+            background-image: url('https://placehold.co/1200x300/a0aec0/ffffff?text=Welcome'); /* Placeholder background */
+            background-size: cover;
+            background-position: center;
+            height: 250px;
+            position: relative;
+        }
+        .profile-image-container {
+            position: absolute;
+            bottom: -64px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .profile-image {
+            width: 128px;
+            height: 128px;
+            border-radius: 9999px;
+            border: 4px solid white;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+        }
+
+        /* Timeline Styles */
+        .timeline-item-container {
+            padding-left: 2.5rem;
+            position: relative;
+        }
+         .timeline-item-container:not(:last-child) {
+            padding-bottom: 1.5rem; /* Add space between items, except for the last one */
+        }
+        .timeline-icon-container {
+            position: absolute;
+            left: 0;
+            top: 0.125rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+        }
+        .timeline-icon {
+            background-color: #3b82f6; /* Blue for timeline consistency */
+            color: white;
+            border-radius: 50%;
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        .timeline-line {
+            width: 2px;
+            background-color: #d1d5db; /* Gray-300 */
+            flex-grow: 1;
+            margin-top: 0.25rem;
+        }
+        .timeline-item-container.is-last .timeline-line {
+            display: none; /* Hide line for the last item in a card */
+        }
+
+        .skill-item {
+            margin-bottom: 1rem; /* mb-4 */
+        }
+        .skill-item .flex {
+             margin-bottom: 0.25rem; /* mb-1 */
+        }
+        .skill-item .text-base { /* Skill name */
+            color: #1f2937; /* text-gray-800 */
+        }
+         .skill-item .text-sm { /* Skill level text */
+            color: #4b5563; /* text-gray-600 */
+        }
+
+        /* Experience Project Item Styling */
+        .project-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.5rem; /* space between project items */
+        }
+        .project-item-icon {
+            color: #3b82f6; /* Blue for experience item icons */
+            margin-right: 0.75rem; /* space between icon and text */
+            margin-top: 0.125rem; /* align icon with text slightly */
+            width: 1.25em; /* ensure icon has enough space */
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .project-item-text {
+            flex: 1;
+        }
+    </style>
+</head>
+<body class="text-gray-700">
+
+    <header class="hero-background">
+        <div class="profile-image-container">
+            <img src="https://placehold.co/128x128/cbd5e0/4a5568?text=JZ" alt="Jingyao Zhan" class="profile-image"
+            onerror="this.onerror=null; this.src='https://placehold.co/128x128/e2e8f0/94a3b8?text=Profile+Pic';">
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 pt-24">
+        <section class="text-center mb-12">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900">Jingyao Zhan</h1>
+            <p class="text-lg md:text-xl text-gray-800 mt-2">Software Engineer</p>
+            <p class="text-md md:text-lg text-gray-600">jzhan900@gmail.com | 585-397-9389 | Sunnyvale, CA</p>
+            <div class="flex justify-center space-x-4 mt-4 text-xl md:text-2xl text-gray-500">
+                <a href="https://www.linkedin.com/in/jingyao-zhan" target="_blank" class="icon-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            <div class="mt-6 max-w-xl md:max-w-2xl mx-auto">
+                <p id="userBio" class="text-gray-700 text-sm md:text-base text-left md:text-center">
+                    Software engineer with 5+ years of experience building scalable, cloud-native services on AWS and Kubernetes. Worked on payment systems at Uber and identity platforms at Clearwater Analytics. Skilled in building IAM platforms and distributed systems for scale and reliability.
+                </p>
+            </div>
+            <div class="mt-8">
+                <a href="#" class="btn btn-primary"> <i class="fas fa-download mr-2"></i> Download Résumé
+                </a>
+            </div>
+        </section>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <section class="timeline-section">
+                <h2 class="section-title mb-6 text-2xl border-b pb-2">Experience</h2>
+                <div class="card timeline-outer-card">
+                    <div class="timeline-item-container">
+                        <div class="timeline-icon-container">
+                            <div class="timeline-icon"><i class="fas fa-briefcase"></i></div>
+                            <div class="timeline-line"></div>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">Software Engineer</h3>
+                            <p class="text-md text-blue-600">Clearwater Analytics</p>
+                            <p class="text-sm text-gray-500 mb-3">06/2023 - Present | San Jose, CA</p>
+                            <div class="space-y-3 text-sm">
+                                <div>
+                                    <p class="font-semibold text-gray-800 mb-1">Customer & Identity Access Management (CIAM) System:</p>
+                                    <div class="space-y-1.5">
+                                        <div class="project-item">
+                                            <span class="project-item-icon"><i class="fas fa-shield-alt fa-fw"></i></span>
+                                            <span class="project-item-text">Developed core CIAM platform components for 2,000+ clients (&lt;300ms latency, 99.98% uptime).</span>
+                                        </div>
+                                        <div class="project-item">
+                                            <span class="project-item-icon"><i class="fas fa-code-branch fa-fw"></i></span>
+                                            <span class="project-item-text">Built 50+ RESTful APIs (Java/Quarkus) for fine-grained access control, reducing costs by 2%.</span>
+                                        </div>
+                                        <div class="project-item">
+                                            <span class="project-item-icon"><i class="fas fa-user-shield fa-fw"></i></span>
+                                            <span class="project-item-text">Designed entrusted role feature (Kotlin/TypeScript), enhancing security & reducing logins by 30%.</span>
+                                        </div>
+                                        <div class="project-item">
+                                            <span class="project-item-icon"><i class="fas fa-users-cog fa-fw"></i></span>
+                                            <span class="project-item-text">Led zero-downtime migration of 55,000+ users to new CIAM platform.</span>
+                                        </div>
+                                        <div class="project-item">
+                                            <span class="project-item-icon"><i class="fas fa-tools fa-fw"></i></span>
+                                            <span class="project-item-text">Built full-stack Admin Console, boosting IAM throughput by 40%.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pt-2">
+                                    <p class="font-semibold text-gray-800 mb-1">White-Label Service Lead:</p>
+                                     <div class="space-y-1.5">
+                                        <div class="project-item">
+                                            <span class="project-item-icon"><i class="fas fa-cloud fa-fw"></i></span>
+                                            <span class="project-item-text">Led team to deliver multi-tenant SaaS Java service on Kubernetes (AWS EKS), reducing deployment time by 60%.</span>
+                                        </div>
+                                        <div class="project-item">
+                                            <span class="project-item-icon"><i class="fas fa-sync-alt fa-fw"></i></span>
+                                            <span class="project-item-text">Integrated CI/CD (Jenkins) & monitoring (Dynatrace/Elasticsearch), cutting rollbacks by ~10%.</span>
+                                        </div>
+                                        <div class="project-item">
+                                            <span class="project-item-icon"><i class="fas fa-rocket fa-fw"></i></span>
+                                            <span class="project-item-text">Onboarded 10+ enterprise clients in one quarter, driving a 1.5% revenue increase.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item-container">
+                        <div class="timeline-icon-container">
+                            <div class="timeline-icon"><i class="fas fa-briefcase"></i></div>
+                            <div class="timeline-line"></div>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">Software Engineer</h3>
+                            <p class="text-md text-blue-600">Farmers Business Network, Inc.</p>
+                            <p class="text-sm text-gray-500 mb-3">08/2020 - 11/2022 | San Carlos, CA</p>
+                             <div class="space-y-3 text-sm">
+                                <div>
+                                    <p class="font-semibold text-gray-800 mb-1">Sustainability Platform Lead:</p>
+                                    <div class="space-y-1.5">
+                                        <div class="project-item">
+                                            <span class="project-item-icon"><i class="fas fa-leaf fa-fw"></i></span>
+                                            <span class="project-item-text">Implemented Python-based Sustainability Platform (AWS EC2), boosting QPS by 200%.</span>
+                                        </div>
+                                        <div class="project-item">
+                                            <span class="project-item-icon"><i class="fas fa-database fa-fw"></i></span>
+                                            <span class="project-item-text">Built asynchronous data pipeline for 2,000+ farms, achieving &gt;80% user adoption for recommendations.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item-container is-last">
+                        <div class="timeline-icon-container">
+                            <div class="timeline-icon"><i class="fas fa-briefcase"></i></div>
+                            <div class="timeline-line"></div> 
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">Software Engineer</h3>
+                            <p class="text-md text-blue-600">Uber Technologies, Inc.</p>
+                            <p class="text-sm text-gray-500 mb-3">04/2019 - 06/2020 | Palo Alto, CA</p>
+                            <div class="space-y-3 text-sm">
+                                <div>
+                                    <p class="font-semibold text-gray-800 mb-1">Payment Grant System:</p>
+                                    <div class="space-y-1.5">
+                                        <div class="project-item">
+                                            <span class="project-item-icon"><i class="fas fa-credit-card fa-fw"></i></span>
+                                            <span class="project-item-text">Launched Java service for credit card authorization (99.95% accuracy), including $1 hold logic.</span>
+                                        </div>
+                                        <div class="project-item">
+                                            <span class="project-item-icon"><i class="fas fa-exchange-alt fa-fw"></i></span>
+                                            <span class="project-item-text">Led migration of payment providers from Python to Java, handling 200 QPS.</span>
+                                        </div>
+                                        <div class="project-item">
+                                            <span class="project-item-icon"><i class="fas fa-project-diagram fa-fw"></i></span>
+                                            <span class="project-item-text">Designed V2 data model (Thrift/DynamoDB), reducing latency by 40%.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="timeline-section">
+                <h2 class="section-title mb-6 text-2xl border-b pb-2">Education</h2>
+                <div class="card timeline-outer-card">
+                     <div class="timeline-item-container">
+                        <div class="timeline-icon-container">
+                            <div class="timeline-icon"><i class="fas fa-graduation-cap"></i></div>
+                            <div class="timeline-line"></div>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">Master of Science in Computer Science</h3>
+                            <p class="text-md text-blue-600">University of California San Diego</p>
+                            <p class="text-sm text-gray-500 mb-1">09/2017 - 03/2019 | La Jolla, CA</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item-container is-last">
+                        <div class="timeline-icon-container">
+                            <div class="timeline-icon"><i class="fas fa-graduation-cap"></i></div>
+                            <div class="timeline-line"></div> 
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">B.A. in Computer Science, B.A. in Financial Economics</h3>
+                            <p class="text-md text-blue-600">University of Rochester</p>
+                            <p class="text-sm text-gray-500 mb-1">09/2013 - 06/2017 | Rochester, NY</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+            <section>
+                <h2 class="section-title mb-6 text-2xl border-b pb-2">Languages & Frameworks</h2>
+                <div class="card">
+                    <div class="skill-item">
+                        <div class="flex justify-between w-full items-center">
+                            <span class="text-base font-medium text-gray-800"><i class="fab fa-python fa-fw mr-2 text-orange-500"></i>PYTHON</span>
+                            <span class="text-sm font-medium text-gray-600">Proficient</span>
+                        </div>
+                        <div class="w-full progress-bar-bg rounded-full h-2.5 mt-1">
+                            <div class="progress-bar-fill h-2.5 rounded-full" style="width: 90%; background-color: #f97316;"></div> </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="flex justify-between w-full items-center">
+                            <span class="text-base font-medium text-gray-800"><i class="fab fa-java fa-fw mr-2 text-amber-500"></i>JAVA</span>
+                            <span class="text-sm font-medium text-gray-600">Proficient</span>
+                        </div>
+                        <div class="w-full progress-bar-bg rounded-full h-2.5 mt-1">
+                            <div class="progress-bar-fill h-2.5 rounded-full" style="width: 90%; background-color: #f59e0b;"></div> </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="flex justify-between w-full items-center">
+                            <span class="text-base font-medium text-gray-800"><i class="fas fa-code fa-fw mr-2 text-lime-500"></i>KOTLIN</span>
+                            <span class="text-sm font-medium text-gray-600">Proficient</span>
+                        </div>
+                        <div class="w-full progress-bar-bg rounded-full h-2.5 mt-1">
+                            <div class="progress-bar-fill h-2.5 rounded-full" style="width: 85%; background-color: #84cc16;"></div> </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="flex justify-between w-full items-center">
+                            <span class="text-base font-medium text-gray-800"><i class="fab fa-golang fa-fw mr-2 text-cyan-500"></i>GO</span>
+                            <span class="text-sm font-medium text-gray-600">Proficient</span>
+                        </div>
+                        <div class="w-full progress-bar-bg rounded-full h-2.5 mt-1">
+                            <div class="progress-bar-fill h-2.5 rounded-full" style="width: 80%; background-color: #06b6d4;"></div> </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="flex justify-between w-full items-center">
+                            <span class="text-base font-medium text-gray-800"><i class="fab fa-js fa-fw mr-2 text-rose-500"></i>TYPESCRIPT</span>
+                            <span class="text-sm font-medium text-gray-600">Proficient</span>
+                        </div>
+                        <div class="w-full progress-bar-bg rounded-full h-2.5 mt-1">
+                            <div class="progress-bar-fill h-2.5 rounded-full" style="width: 85%; background-color: #f43f5e;"></div> </div>
+                    </div>
+                     <div class="skill-item">
+                        <div class="flex justify-between w-full items-center">
+                            <span class="text-base font-medium text-gray-800"><i class="fas fa-database fa-fw mr-2 text-fuchsia-500"></i>SQL</span>
+                            <span class="text-sm font-medium text-gray-600">Proficient</span>
+                        </div>
+                        <div class="w-full progress-bar-bg rounded-full h-2.5 mt-1">
+                            <div class="progress-bar-fill h-2.5 rounded-full" style="width: 90%; background-color: #d946ef;"></div> </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="flex justify-between w-full items-center">
+                            <span class="text-base font-medium text-gray-800"><i class="fas fa-code fa-fw mr-2 text-orange-500"></i>GROOVY</span>
+                            <span class="text-sm font-medium text-gray-600">Proficient</span>
+                        </div>
+                        <div class="w-full progress-bar-bg rounded-full h-2.5 mt-1">
+                            <div class="progress-bar-fill h-2.5 rounded-full" style="width: 75%; background-color: #f97316;"></div> </div>
+                    </div>
+                     <div class="skill-item">
+                        <div class="flex justify-between w-full items-center">
+                            <span class="text-base font-medium text-gray-800"><i class="fas fa-terminal fa-fw mr-2 text-amber-500"></i>BASH/UNIX SHELL</span>
+                            <span class="text-sm font-medium text-gray-600">Proficient</span>
+                        </div>
+                        <div class="w-full progress-bar-bg rounded-full h-2.5 mt-1">
+                            <div class="progress-bar-fill h-2.5 rounded-full" style="width: 80%; background-color: #f59e0b;"></div> </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="flex justify-between w-full items-center">
+                            <span class="text-base font-medium text-gray-800"><i class="fas fa-code fa-fw mr-2 text-lime-500"></i>QUARKUS</span>
+                            <span class="text-sm font-medium text-gray-600">Proficient</span>
+                        </div>
+                        <div class="w-full progress-bar-bg rounded-full h-2.5 mt-1">
+                            <div class="progress-bar-fill h-2.5 rounded-full" style="width: 80%; background-color: #84cc16;"></div> </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="flex justify-between w-full items-center">
+                            <span class="text-base font-medium text-gray-800"><i class="fab fa-angular fa-fw mr-2 text-cyan-500"></i>ANGULARJS</span>
+                            <span class="text-sm font-medium text-gray-600">Proficient</span>
+                        </div>
+                        <div class="w-full progress-bar-bg rounded-full h-2.5 mt-1">
+                            <div class="progress-bar-fill h-2.5 rounded-full" style="width: 75%; background-color: #06b6d4;"></div> </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="section-title mb-6 text-2xl border-b pb-2">Database & Tools</h2>
+                <div class="card">
+                    <div class="skill-item">
+                        <div class="flex justify-between w-full items-center">
+                            <span class="text-base font-medium text-gray-800"><i class="fas fa-database fa-fw mr-2 text-rose-500"></i>POSTGRESQL</span>
+                            <span class="text-sm font-medium text-gray-600">Proficient</span>
+                        </div>
+                        <div class="w-full progress-bar-bg rounded-full h-2.5 mt-1">
+                            <div class="progress-bar-fill h-2.5 rounded-full" style="width: 85%; background-color: #f43f5e;"></div> </div>
+                    </div>
+                     <div class="skill-item">
+                        <div class="flex justify-between w-full items-center">
+                            <span class="text-base font-medium text-gray-800"><i class="fas fa-database fa-fw mr-2 text-fuchsia-500"></i>MYSQL</span>
+                            <span class="text-sm font-medium text-gray-600">Proficient</span>
+                        </div>
+                        <div class="w-full progress-bar-bg rounded-full h-2.5 mt-1">
+                            <div class="progress-bar-fill h-2.5 rounded-full" style="width: 80%; background-color: #d946ef;"></div> </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="flex justify-between w-full items-center">
+                            <span class="text-base font-medium text-gray-800"><i class="fas fa-database fa-fw mr-2 text-orange-500"></i>REDIS</span>
+                            <span class="text-sm font-medium text-gray-600">Proficient</span>
+                        </div>
+                        <div class="w-full progress-bar-bg rounded-full h-2.5 mt-1">
+                            <div class="progress-bar-fill h-2.5 rounded-full" style="width: 80%; background-color: #f97316;"></div> </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="flex justify-between w-full items-center">
+                            <span class="text-base font-medium text-gray-800"><i class="fas fa-stream fa-fw mr-2 text-amber-500"></i>KAFKA</span>
+                            <span class="text-sm font-medium text-gray-600">Proficient</span>
+                        </div>
+                        <div class="w-full progress-bar-bg rounded-full h-2.5 mt-1">
+                            <div class="progress-bar-fill h-2.5 rounded-full" style="width: 75%; background-color: #f59e0b;"></div> </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="flex justify-between w-full items-center">
+                            <span class="text-base font-medium text-gray-800"><i class="fas fa-table fa-fw mr-2 text-lime-500"></i>BIGQUERY</span>
+                            <span class="text-sm font-medium text-gray-600">Proficient</span>
+                        </div>
+                        <div class="w-full progress-bar-bg rounded-full h-2.5 mt-1">
+                            <div class="progress-bar-fill h-2.5 rounded-full" style="width: 70%; background-color: #84cc16;"></div> </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="flex justify-between w-full items-center">
+                            <span class="text-base font-medium text-gray-800"><i class="fab fa-aws fa-fw mr-2 text-cyan-500"></i>AWS</span>
+                            <span class="text-sm font-medium text-gray-600">Proficient</span>
+                        </div>
+                        <div class="w-full progress-bar-bg rounded-full h-2.5 mt-1">
+                            <div class="progress-bar-fill h-2.5 rounded-full" style="width: 90%; background-color: #06b6d4;"></div> </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="flex justify-between w-full items-center">
+                            <span class="text-base font-medium text-gray-800"><i class="fas fa-network-wired fa-fw mr-2 text-rose-500"></i>GRPC</span>
+                            <span class="text-sm font-medium text-gray-600">Proficient</span>
+                        </div>
+                        <div class="w-full progress-bar-bg rounded-full h-2.5 mt-1">
+                            <div class="progress-bar-fill h-2.5 rounded-full" style="width: 80%; background-color: #f43f5e;"></div> </div>
+                    </div>
+                     <div class="skill-item">
+                        <div class="flex justify-between w-full items-center">
+                            <span class="text-base font-medium text-gray-800"><i class="fas fa-code-branch fa-fw mr-2 text-fuchsia-500"></i>THRIFT</span>
+                            <span class="text-sm font-medium text-gray-600">Proficient</span>
+                        </div>
+                        <div class="w-full progress-bar-bg rounded-full h-2.5 mt-1">
+                            <div class="progress-bar-fill h-2.5 rounded-full" style="width: 75%; background-color: #d946ef;"></div> </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="flex justify-between w-full items-center">
+                            <span class="text-base font-medium text-gray-800"><i class="fas fa-cogs fa-fw mr-2 text-orange-500"></i>CI/CD</span>
+                            <span class="text-sm font-medium text-gray-600">Proficient</span>
+                        </div>
+                        <div class="w-full progress-bar-bg rounded-full h-2.5 mt-1">
+                            <div class="progress-bar-fill h-2.5 rounded-full" style="width: 85%; background-color: #f97316;"></div> </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="flex justify-between w-full items-center">
+                            <span class="text-base font-medium text-gray-800"><i class="fab fa-docker fa-fw mr-2 text-amber-500"></i>DOCKER</span>
+                            <span class="text-sm font-medium text-gray-600">Proficient</span>
+                        </div>
+                        <div class="w-full progress-bar-bg rounded-full h-2.5 mt-1">
+                            <div class="progress-bar-fill h-2.5 rounded-full" style="width: 85%; background-color: #f59e0b;"></div> </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="flex justify-between w-full items-center">
+                            <span class="text-base font-medium text-gray-800"><i class="fas fa-dharmachakra fa-fw mr-2 text-lime-500"></i>KUBERNETES</span>
+                            <span class="text-sm font-medium text-gray-600">Proficient</span>
+                        </div>
+                        <div class="w-full progress-bar-bg rounded-full h-2.5 mt-1">
+                            <div class="progress-bar-fill h-2.5 rounded-full" style="width: 85%; background-color: #84cc16;"></div> </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="flex justify-between w-full items-center">
+                            <span class="text-base font-medium text-gray-800"><i class="fas fa-anchor fa-fw mr-2 text-cyan-500"></i>HELM</span>
+                            <span class="text-sm font-medium text-gray-600">Proficient</span>
+                        </div>
+                        <div class="w-full progress-bar-bg rounded-full h-2.5 mt-1">
+                            <div class="progress-bar-fill h-2.5 rounded-full" style="width: 80%; background-color: #06b6d4;"></div> </div>
+                    </div>
+                     <div class="skill-item">
+                        <div class="flex justify-between w-full items-center">
+                            <span class="text-base font-medium text-gray-800"><i class="fas fa-layer-group fa-fw mr-2 text-rose-500"></i>TERRAFORM</span>
+                            <span class="text-sm font-medium text-gray-600">Proficient</span>
+                        </div>
+                        <div class="w-full progress-bar-bg rounded-full h-2.5 mt-1">
+                            <div class="progress-bar-fill h-2.5 rounded-full" style="width: 80%; background-color: #f43f5e;"></div> </div>
+                    </div>
+                     <div class="skill-item">
+                        <div class="flex justify-between w-full items-center">
+                            <span class="text-base font-medium text-gray-800"><i class="fab fa-jenkins fa-fw mr-2 text-fuchsia-500"></i>JENKINS</span>
+                            <span class="text-sm font-medium text-gray-600">Proficient</span>
+                        </div>
+                        <div class="w-full progress-bar-bg rounded-full h-2.5 mt-1">
+                            <div class="progress-bar-fill h-2.5 rounded-full" style="width: 80%; background-color: #d946ef;"></div> </div>
+                    </div>
+                     <div class="skill-item">
+                        <div class="flex justify-between w-full items-center">
+                            <span class="text-base font-medium text-gray-800"><i class="fab fa-git-alt fa-fw mr-2 text-orange-500"></i>GIT</span>
+                            <span class="text-sm font-medium text-gray-600">Proficient</span>
+                        </div>
+                        <div class="w-full progress-bar-bg rounded-full h-2.5 mt-1">
+                            <div class="progress-bar-fill h-2.5 rounded-full" style="width: 90%; background-color: #f97316;"></div> </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="flex justify-between w-full items-center">
+                            <span class="text-base font-medium text-gray-800"><i class="fas fa-search fa-fw mr-2 text-amber-500"></i>ELASTICSEARCH</span>
+                            <span class="text-sm font-medium text-gray-600">Proficient</span>
+                        </div>
+                        <div class="w-full progress-bar-bg rounded-full h-2.5 mt-1">
+                            <div class="progress-bar-fill h-2.5 rounded-full" style="width: 75%; background-color: #f59e0b;"></div> </div>
+                    </div>
+                    </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="text-center py-8 mt-12 bg-gray-100">
+        <p class="text-gray-600">&copy; <span id="currentYear"></span> Jingyao Zhan. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
