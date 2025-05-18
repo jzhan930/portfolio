@@ -118,7 +118,8 @@
             margin-top: 0.25rem;
         }
         .timeline-item-container.is-last .timeline-line {
-            display: none; /* Hide line for the last item in a card */
+            flex-grow: 0 !important;
+            height: 0 !important; 
         }
 
         .skill-item {
@@ -266,7 +267,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="timeline-item-container is-last">
+                    <div class="timeline-item-container">
                         <div class="timeline-icon-container">
                             <div class="timeline-icon"><i class="fas fa-briefcase"></i></div>
                             <div class="timeline-line"></div> 
@@ -313,7 +314,7 @@
                             <p class="text-sm text-gray-500 mb-1">09/2017 - 03/2019 | La Jolla, CA</p>
                         </div>
                     </div>
-                    <div class="timeline-item-container is-last">
+                    <div class="timeline-item-container">
                         <div class="timeline-icon-container">
                             <div class="timeline-icon"><i class="fas fa-graduation-cap"></i></div>
                             <div class="timeline-line"></div> 
